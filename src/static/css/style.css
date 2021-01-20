@@ -1,5 +1,9 @@
+.gallery .image-grid {
+    
+}
+
 .gallery img {
-    margin: 10px;
+    margin: 1%;
     width: 31%;
     cursor: pointer;
     transition: 1s;

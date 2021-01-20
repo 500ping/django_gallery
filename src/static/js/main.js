@@ -10,6 +10,7 @@ $(document).ready(function () {
             $('.image-grid').masonry({
                 // options
                 itemSelector: 'img',
+                percentPosition: true,
             });
         },
     });
