@@ -1,0 +1,12 @@
+.gallery img {
+    margin: 10px;
+    width: 31%;
+    cursor: pointer;
+    transition: 1s;
+    border-radius: 2%;
+}
+
+.gallery img:hover {
+    transform: scale(1.05) !important;
+}
+
