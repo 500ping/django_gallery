@@ -1,0 +1,13 @@
+docker-compose up -d --build
+docker-compose exec web python manage.py loaddata db.json
+
+docker kill $(docker ps -q)
+docker rm $(docker ps -a -q)
+
+docker volume rm $(docker volume ls -q)
+
+docker system prune -a
+docker rmi $(docker images -q)
+
+docker-compose -f docker-compose-deploy.yml build web
+docker-compose -f docker-compose-deploy.yml up --no-deps -d web

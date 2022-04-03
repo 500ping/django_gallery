@@ -1,4 +1,4 @@
-FROM python:3.7.5-slim
+FROM python:3.9.6-alpine
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -8,10 +8,9 @@ WORKDIR /app
 
 COPY requirements.txt /app
 
-RUN apt-get update \
-    && apt-get install -y netcat \
-    && apt-get install -y python3-pip python3-dev libpq-dev \
-    && pip3 install --upgrade pip \
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev \
+    && pip install --upgrade pip \
     && pip install -r requirements.txt
 
 # copy entrypoint.sh
