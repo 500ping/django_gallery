@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+  web:
+    restart: unless-stopped   
+    build: .
+    command: gunicorn gallery.wsgi:application --bind 0.0.0.0:8000
+    env_file:
+      - ./.env.dev
+    volumes:
+      - .:/app
+      - static_volume:/static
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+  db:
+    restart: unless-stopped   
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  nginx:
+    restart: unless-stopped   
+    build: ./nginx
+    volumes:
+      - .:/app
+      - static_volume:/static
+    depends_on:
+      - web
+    ports:
+      - 80:80
+
+volumes:
+  postgres_data:
+  static_volume:
+
+# volumes:
+#   postgres_data:
+#   nginx:
+#   static_volume:
